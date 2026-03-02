@@ -31,18 +31,6 @@
             show-password
           />
         </el-form-item>
-        <el-form-item prop="role">
-          <el-select
-            v-model="loginForm.role"
-            placeholder="请选择角色"
-            size="large"
-            style="width: 100%"
-          >
-            <el-option label="学生" value="student" />
-            <el-option label="教师" value="teacher" />
-            <el-option label="管理员" value="admin" />
-          </el-select>
-        </el-form-item>
         <el-form-item>
           <el-checkbox v-model="loginForm.remember">记住密码</el-checkbox>
         </el-form-item>
@@ -71,6 +59,7 @@ import { ref, reactive } from 'vue'
 import { useRouter } from 'vue-router'
 import { ElMessage, FormInstance, FormRules } from 'element-plus'
 import { useUserStore } from '@/stores/user'
+import { login as loginApi } from '@/api/auth'
 
 const router = useRouter()
 const userStore = useUserStore()
@@ -81,7 +70,6 @@ const loading = ref(false)
 const loginForm = reactive({
   username: '',
   password: '',
-  role: 'student',
   remember: false
 })
 
@@ -90,8 +78,7 @@ const loginRules: FormRules = {
   password: [
     { required: true, message: '请输入密码', trigger: 'blur' },
     { min: 6, message: '密码长度不能小于6位', trigger: 'blur' }
-  ],
-  role: [{ required: true, message: '请选择角色', trigger: 'change' }]
+  ]
 }
 
 const handleLogin = async () => {
@@ -100,23 +87,25 @@ const handleLogin = async () => {
 
   loading.value = true
   try {
-    // TODO: 调用登录 API
-    await new Promise(resolve => setTimeout(resolve, 1000))
+    const res = await loginApi(loginForm.username, loginForm.password)
     
-    // 模拟登录成功
-    const token = 'mock-token-' + Date.now()
-    userStore.setToken(token)
+    // 保存 token 和用户信息
+    userStore.setToken(res.data.token)
     userStore.setUserInfo({
-      id: '1',
-      username: loginForm.username,
-      name: loginForm.username,
-      role: loginForm.role as 'student' | 'teacher' | 'admin'
+      id: res.data.user.id,
+      username: res.data.user.username,
+      name: res.data.user.name,
+      role: res.data.user.role,
+      avatar: res.data.user.avatar,
+      college: res.data.user.college,
+      major: res.data.user.major,
+      email: res.data.user.email
     })
 
     ElMessage.success('登录成功')
     router.push('/dashboard')
-  } catch (error) {
-    ElMessage.error('登录失败，请检查用户名和密码')
+  } catch (error: any) {
+    ElMessage.error(error.message || '登录失败，请检查用户名和密码')
   } finally {
     loading.value = false
   }
