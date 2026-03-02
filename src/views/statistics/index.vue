@@ -18,7 +18,7 @@
       </el-col>
       <el-col :span="6">
         <el-card shadow="hover" class="stat-card">
-          <el-statistic title="认定学分" :value="stats.totalCredits" />
+          <el-statistic title="指导教师" :value="stats.totalTeachers" />
         </el-card>
       </el-col>
     </el-row>
@@ -76,8 +76,8 @@
             <el-table-column prop="projectCount" label="项目数量" width="100" />
             <el-table-column prop="studentCount" label="参与学生" width="100" />
             <el-table-column prop="achievementCount" label="成果数量" width="100" />
-            <el-table-column prop="avgCredit" label="平均学分" width="100" />
-            <el-table-column prop="completionRate" label="结题率" width="100">
+            <el-table-column prop="teacherCount" label="指导教师" width="100" />
+            <el-table-column prop="completionRate" label="结题率" width="120">
               <template #default="{ row }">
                 <el-progress :percentage="row.completionRate" :stroke-width="8" />
               </template>
@@ -102,15 +102,15 @@ const stats = ref({
   totalProjects: 128,
   totalStudents: 342,
   totalAchievements: 86,
-  totalCredits: 1560
+  totalTeachers: 45
 })
 
 const collegeRanking = ref([
-  { college: '计算机学院', projectCount: 45, studentCount: 120, achievementCount: 28, avgCredit: 3.5, completionRate: 78 },
-  { college: '软件学院', projectCount: 32, studentCount: 85, achievementCount: 20, avgCredit: 3.2, completionRate: 72 },
-  { college: '电子工程学院', projectCount: 28, studentCount: 70, achievementCount: 18, avgCredit: 2.8, completionRate: 68 },
-  { college: '机械工程学院', projectCount: 15, studentCount: 42, achievementCount: 12, avgCredit: 2.5, completionRate: 65 },
-  { college: '经济管理学院', projectCount: 8, studentCount: 25, achievementCount: 8, avgCredit: 2.2, completionRate: 60 }
+  { college: '计算机学院', projectCount: 45, studentCount: 120, achievementCount: 28, teacherCount: 12, completionRate: 78 },
+  { college: '软件学院', projectCount: 32, studentCount: 85, achievementCount: 20, teacherCount: 10, completionRate: 72 },
+  { college: '电子工程学院', projectCount: 28, studentCount: 70, achievementCount: 18, teacherCount: 8, completionRate: 68 },
+  { college: '机械工程学院', projectCount: 15, studentCount: 42, achievementCount: 12, teacherCount: 6, completionRate: 65 },
+  { college: '经济管理学院', projectCount: 8, studentCount: 25, achievementCount: 8, teacherCount: 4, completionRate: 60 }
 ])
 
 onMounted(() => {

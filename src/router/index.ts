@@ -44,12 +44,6 @@ const routes: RouteRecordRaw[] = [
         meta: { title: '项目详情', hidden: true }
       },
       {
-        path: 'users',
-        name: 'Users',
-        component: () => import('@/views/users/index.vue'),
-        meta: { title: '用户管理', icon: 'User' }
-      },
-      {
         path: 'reviews',
         name: 'Reviews',
         component: () => import('@/views/reviews/index.vue'),
@@ -62,10 +56,10 @@ const routes: RouteRecordRaw[] = [
         meta: { title: '成果管理', icon: 'Trophy' }
       },
       {
-        path: 'credits',
-        name: 'Credits',
-        component: () => import('@/views/credits/index.vue'),
-        meta: { title: '学分认定', icon: 'Medal' }
+        path: 'users',
+        name: 'Users',
+        component: () => import('@/views/users/index.vue'),
+        meta: { title: '用户管理', icon: 'User' }
       },
       {
         path: 'statistics',

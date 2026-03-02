@@ -29,10 +29,6 @@
         <el-icon><Trophy /></el-icon>
         <template #title>成果管理</template>
       </el-menu-item>
-      <el-menu-item index="/credits">
-        <el-icon><Medal /></el-icon>
-        <template #title>学分认定</template>
-      </el-menu-item>
       <el-menu-item index="/users">
         <el-icon><User /></el-icon>
         <template #title>用户管理</template>

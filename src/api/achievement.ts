@@ -10,7 +10,6 @@ export interface Achievement {
   publishDate: string
   publisher: string
   status: 'pending' | 'approved' | 'rejected'
-  credits?: number
   createdAt: string
 }
 

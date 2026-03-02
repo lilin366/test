@@ -26,22 +26,22 @@
       <el-col :span="6">
         <el-card shadow="hover" class="stat-card">
           <div class="stat-icon" style="background: #e6a23c">
-            <el-icon :size="28"><User /></el-icon>
+            <el-icon :size="28"><Clock /></el-icon>
           </div>
           <div class="stat-info">
-            <p class="stat-value">{{ stats.studentCount }}</p>
-            <p class="stat-label">参与学生</p>
+            <p class="stat-value">{{ stats.inProgressProjects }}</p>
+            <p class="stat-label">进行中</p>
           </div>
         </el-card>
       </el-col>
       <el-col :span="6">
         <el-card shadow="hover" class="stat-card">
           <div class="stat-icon" style="background: #f56c6c">
-            <el-icon :size="28"><Medal /></el-icon>
+            <el-icon :size="28"><User /></el-icon>
           </div>
           <div class="stat-info">
-            <p class="stat-value">{{ stats.totalCredits }}</p>
-            <p class="stat-label">认定学分</p>
+            <p class="stat-value">{{ stats.studentCount }}</p>
+            <p class="stat-label">参与学生</p>
           </div>
         </el-card>
       </el-col>
@@ -131,8 +131,8 @@ const achievementsLoading = ref(false)
 const stats = ref({
   totalProjects: 0,
   completedProjects: 0,
-  studentCount: 0,
-  totalCredits: 0
+  inProgressProjects: 0,
+  studentCount: 0
 })
 
 const pendingTasks = ref<Array<{ title: string; type: string; date: string }>>([])
@@ -155,8 +155,8 @@ const fetchData = async () => {
       stats.value = {
         totalProjects: overviewRes.data.totalProjects,
         completedProjects: overviewRes.data.completedProjects,
-        studentCount: overviewRes.data.studentCount,
-        totalCredits: overviewRes.data.totalCredits
+        inProgressProjects: overviewRes.data.inProgressProjects,
+        studentCount: overviewRes.data.studentCount
       }
     }
     
@@ -165,8 +165,7 @@ const fetchData = async () => {
       initPieChart(dataRes.data.projectTypeDistribution)
     }
   } catch (error) {
-    // 使用默认数据
-    stats.value = { totalProjects: 128, completedProjects: 86, studentCount: 342, totalCredits: 1560 }
+    stats.value = { totalProjects: 128, completedProjects: 86, inProgressProjects: 42, studentCount: 342 }
     initLineChart()
     initPieChart()
   } finally {
