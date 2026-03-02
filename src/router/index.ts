@@ -9,6 +9,12 @@ const routes: RouteRecordRaw[] = [
     meta: { title: '登录', hidden: true }
   },
   {
+    path: '/register',
+    name: 'Register',
+    component: () => import('@/views/login/register.vue'),
+    meta: { title: '注册', hidden: true }
+  },
+  {
     path: '/',
     component: Layout,
     redirect: '/dashboard',
@@ -88,10 +94,9 @@ const router = createRouter({
   routes
 })
 
-// 路由守卫
 router.beforeEach((to, _from, next) => {
   const token = localStorage.getItem('token')
-  if (to.path !== '/login' && !token) {
+  if (!['/login', '/register'].includes(to.path) && !token) {
     next('/login')
   } else {
     next()

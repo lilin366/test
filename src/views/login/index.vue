@@ -48,7 +48,7 @@
       </el-form>
       <div class="login-footer">
         <span>还没有账号？</span>
-        <el-button type="primary" link>立即注册</el-button>
+        <el-button type="primary" link @click="$router.push('/register')">立即注册</el-button>
       </div>
     </div>
   </div>
